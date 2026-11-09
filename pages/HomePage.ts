@@ -18,4 +18,8 @@ export class HomePage {
   async goToLogin() {
     await this.signupLoginLink.click();
   }
+
+    async goTo() {
+    await this.signupLoginLink.click();
+  }
 }
