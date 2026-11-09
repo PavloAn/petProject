@@ -1,14 +1,11 @@
 import { test, expect } from '@playwright/test';
-import { HomePage } from '../../pages/HomePage';
+import { LoginPage } from '../../pages/LoginPage';
 
-test('Перехід на сторінку входу', async ({ page }) => {
-  const homePage = new HomePage(page);
+test('Показує помилку при вході з неправильними даними', async ({ page }) => {
+  const loginPage = new LoginPage(page);
 
-  await homePage.open();
-  await homePage.goToLogin();
+  await loginPage.open();
+  await loginPage.login('invalid@example.com', 'wrong-password');
 
-  await expect(page).toHaveURL(/\/login$/);
-  await expect(
-    page.getByRole('heading', { name: 'Login to your account' })
-  ).toBeVisible();
+  await expect(loginPage.errorMessage).toBeVisible();
 });
